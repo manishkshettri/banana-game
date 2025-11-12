@@ -1,15 +1,13 @@
-// =============== Version Control Notes ===============
-// Commit stages: "Initial setup", "Added PHP login", "Integrated get_puzzle.php (3-tier)"
-
 const loginSection = document.getElementById("login-section");
 const gameSection = document.getElementById("game-section");
 const welcome = document.getElementById("welcome");
 const loginMsg = document.getElementById("loginMsg");
 
-// Check if session is active
+// To Check if the session is active
+
 checkSession();
 
-// ================= LOGIN =================
+// LOGIN 
 document.getElementById("loginBtn").addEventListener("click", async () => {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -35,23 +33,28 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 });
 
-// ================= LOGOUT =================
+// LOGOUT 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await fetch("logout.php");
   gameSection.classList.add("hidden");
   loginSection.classList.remove("hidden");
+
+  // To Clear the login form fields
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
+
   loginMsg.textContent = "You have logged out.";
   loginMsg.style.color = "green";
 });
 
-// ================= SESSION CHECK =================
+// SESSION CHECK
 async function checkSession() {
   const res = await fetch("check_session.php");
   const data = await res.json();
   if (data.loggedIn) showGame(data.user);
 }
 
-// ================= SHOW GAME =================
+// SHOW GAME 
 function showGame(user) {
   loginSection.classList.add("hidden");
   gameSection.classList.remove("hidden");
@@ -59,7 +62,7 @@ function showGame(user) {
   loadPuzzle();
 }
 
-// ================= FETCH PUZZLE (3-TIER INTEROPERABILITY) =================
+// FETCH PUZZLE (3-TIER INTEROPERABILITY)
 async function loadPuzzle() {
   const puzzleImg = document.getElementById("puzzle");
   const result = document.getElementById("result");
@@ -83,7 +86,7 @@ async function loadPuzzle() {
   }
 }
 
-// ================= SUBMIT ANSWER =================
+// SUBMIT ANSWER
 document.getElementById("submitBtn").addEventListener("click", () => {
   const userAnswer = document.getElementById("answer").value.trim();
   const correctAnswer = document.getElementById("puzzle").dataset.answer;
