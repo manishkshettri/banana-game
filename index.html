@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍌 Banana Puzzle Game - CIS046-3</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🍌 Banana Puzzle Game</h1>
+
+    <!-- LOGIN SECTION -->
+    <div id="login-section">
+      <input type="text" id="username" placeholder="Enter username">
+      <input type="password" id="password" placeholder="Enter password">
+      <button id="loginBtn">Login</button>
+      <p id="loginMsg"></p>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div id="game-section" class="hidden">
+      <div class="top-bar">
+        <p id="welcome"></p>
+        <button id="logoutBtn">Logout</button>
+      </div>
+
+      <img id="puzzle" src="" alt="Banana Puzzle">
+      <input type="text" id="answer" placeholder="Your answer">
+      <button id="submitBtn">Submit</button>
+      <p id="result"></p>
+      <button id="nextBtn">Next Puzzle</button>
+    </div>
+
+    <footer>
+      <p>CIS046-3 | Demonstrating Version Control, Events, Interoperability, and Virtual Identity</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
