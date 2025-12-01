@@ -87,24 +87,35 @@ async function loadPuzzle() {
 }
 
 // SUBMIT ANSWER
-document.getElementById("submitBtn").addEventListener("click", () => {
-  const userAnswer = document.getElementById("answer").value.trim();
-  const correctAnswer = document.getElementById("puzzle").dataset.answer;
-  const result = document.getElementById("result");
+document.getElementById("submitBtn").addEventListener("click", async () => {
+    const answer = document.getElementById("answer").value.trim();
+    const result = document.getElementById("result");
 
-  if (!userAnswer) {
-    result.textContent = "Please enter your answer!";
-    result.style.color = "orange";
-    return;
-  }
+    if (!answer) {
+        result.textContent = "Please enter your answer!";
+        result.style.color = "orange";
+        return;
+    }
 
-  if (userAnswer === correctAnswer) {
-    result.textContent = "✅ Correct!";
-    result.style.color = "green";
-  } else {
-    result.textContent = `❌ Wrong! Correct: ${correctAnswer}`;
-    result.style.color = "red";
-  }
+    const res = await fetch("submitAnswer.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `answer=${answer}`
+    });
+
+    const data = await res.json();
+
+    if (data.result === "correct") {
+        result.textContent = "✅ Correct!";
+        result.style.color = "green";
+    } else if (data.result === "wrong") {
+        result.textContent = `❌ Wrong! Correct answer: ${data.correct}`;
+        result.style.color = "red";
+    } else {
+        result.textContent = "Error submitting answer.";
+        result.style.color = "red";
+    }
 });
+
 
 document.getElementById("nextBtn").addEventListener("click", loadPuzzle);
