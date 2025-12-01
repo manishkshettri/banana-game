@@ -2,21 +2,26 @@
 session_start();
 header('Content-Type: application/json');
 
-// Only allow logged-in users
+// must be logged in
 if (!isset($_SESSION['user'])) {
-    echo json_encode(['error' => 'Unauthorized access']);
+    echo json_encode(['error' => 'Unauthorized']);
     exit;
 }
 
-// Fetch puzzle from external Banana API
 $apiUrl = "https://marcconrad.com/uob/banana/api.php";
 $response = @file_get_contents($apiUrl);
 
 if ($response === FALSE) {
-    echo json_encode(['error' => 'Failed to fetch puzzle']);
+    echo json_encode(['error' => 'API error']);
     exit;
 }
 
-// Return puzzle JSON to JS
-echo $response;
-?>
+$data = json_decode($response, true);
+
+// store solution server-side only
+$_SESSION['solution'] = $data['solution'];
+
+// send only question (image) to client
+echo json_encode([
+    'question' => $data['question']
+]);
