@@ -1,42 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍌 Banana Puzzle Game - CIS046-3</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Banana Puzzle Game</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>🍌 Banana Puzzle Game</h1>
+<div class="container">
+  <h1>🍌 Banana Puzzle Game</h1>
 
-    <!-- LOGIN SECTION -->
-    <div id="login-section">
-      <input type="text" id="username" placeholder="Enter username">
-      <input type="password" id="password" placeholder="Enter password">
+  <!-- AUTH / REG -->
+  <div id="auth-section">
+    <div id="login-form">
+      <input id="username" placeholder="Username" />
+      <input id="password" type="password" placeholder="Password" />
       <button id="loginBtn">Login</button>
+      <button id="showRegisterBtn">Register</button>
       <p id="loginMsg"></p>
     </div>
-
-    <!-- GAME SECTION -->
-    <div id="game-section" class="hidden">
-      <div class="top-bar">
-        <p id="welcome"></p>
-        <button id="logoutBtn">Logout</button>
-      </div>
-
-      <img id="puzzle" src="" alt="Banana Puzzle">
-      <input type="text" id="answer" placeholder="Your answer">
-      <button id="submitBtn">Submit</button>
-      <p id="result"></p>
-      <button id="nextBtn">Next Puzzle</button>
-    </div>
-
-    <footer>
-      <p>CIS046-3 | Demonstrating Version Control, Events, Interoperability, and Virtual Identity</p>
-    </footer>
   </div>
 
-  <script src="script.js"></script>
+  <!-- GAME -->
+  <div id="game-section" class="hidden">
+    <div class="top-bar">
+      <p id="welcome"></p>
+      <div>Score: <span id="score">0</span></div>
+      <div>Time: <span id="timer">10</span>s</div>
+      <button id="logoutBtn">Logout</button>
+    </div>
+
+    <div id="puzzle-container">
+      <img id="puzzle" src="" alt="Puzzle" />
+      
+      <div id="number-pad">
+        <div class="num-row">
+          <button class="num-btn">1</button>
+          <button class="num-btn">2</button>
+          <button class="num-btn">3</button>
+        </div>
+        <div class="num-row">
+          <button class="num-btn">4</button>
+          <button class="num-btn">5</button>
+          <button class="num-btn">6</button>
+        </div>
+        <div class="num-row">
+          <button class="num-btn">7</button>
+          <button class="num-btn">8</button>
+          <button class="num-btn">9</button>
+        </div>
+        <div class="num-row">
+          <button class="num-btn">0</button>
+        </div>
+      </div>
+
+      <p id="result"></p>
+      
+    </div>
+
+    <button id="nextBtn" style="display: none;">Next Puzzle</button>
+  </div>
+
+  <!-- GAMEOVER -->
+  <div id="gameover-section" class="hidden">
+    <h2>Game Over</h2>
+    <p>Your Score: <span id="finalScore">0</span></p>
+    <div id="leaderboard"></div>
+    <button id="newGameBtn">New Game</button>
+    <button id="backToLoginBtn">Back to Login</button>
+  </div>
+
+  <!-- REGISTER (simple modal) -->
+  <div id="register-section" class="hidden">
+    <h3>Register</h3>
+    <input id="reg_username" placeholder="Username" />
+    <input id="reg_password" type="password" placeholder="Password" />
+    <input id="reg_confirm" type="password" placeholder="Confirm Password" />
+    <button id="registerBtn">Create Account</button>
+    <button id="cancelRegisterBtn">Cancel</button>
+    <p id="regMsg"></p>
+  </div>
+
+  <footer>
+    <p>CIS046-3 — Version Control | Events | Interoperability | Virtual Identity</p>
+  </footer>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
