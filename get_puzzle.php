@@ -1,8 +1,8 @@
 <?php
+// get_puzzle.php
 session_start();
 header('Content-Type: application/json');
 
-// must be logged in
 if (!isset($_SESSION['user'])) {
     echo json_encode(['error' => 'Unauthorized']);
     exit;
@@ -10,18 +10,19 @@ if (!isset($_SESSION['user'])) {
 
 $apiUrl = "https://marcconrad.com/uob/banana/api.php";
 $response = @file_get_contents($apiUrl);
-
 if ($response === FALSE) {
     echo json_encode(['error' => 'API error']);
     exit;
 }
 
 $data = json_decode($response, true);
+if (!isset($data['question']) || !isset($data['solution'])) {
+    echo json_encode(['error' => 'Bad API data']);
+    exit;
+}
 
-// store solution server-side only
+// store correct answer server-side
 $_SESSION['solution'] = $data['solution'];
 
-// send only question (image) to client
-echo json_encode([
-    'question' => $data['question']
-]);
+// send only question to client
+echo json_encode(['question' => $data['question']]);
